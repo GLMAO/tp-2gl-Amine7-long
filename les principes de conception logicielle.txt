@@ -1,0 +1,37 @@
+# Analyse des Principes SOLID
+
+## Résumé
+
+| Principe | Respecté ? | Commentaire |
+|----------|------------|-------------|
+
+| Single Responsibility | ⚠️ Partiellement | Violation dans `GestionnaireEmploiDuTemps` |
+
+| Open/Closed | ✅ Oui | Decorator et Observer permettent l'extension |
+| Liskov Substitution | ✅ Oui | Les sous-types sont substituables |
+| Interface Segregation | ✅ Oui | Interfaces minimales et ciblées |
+| Dependency Inversion | ✅ Oui | Dépendance aux abstractions |
+
+## Violation identifiée : SRP
+
+### Problème
+`GestionnaireEmploiDuTemps` a **deux responsabilités** :
+1. Gérer la liste des cours
+2. Gérer les notifications (Observer pattern)
+
+### Impact
+- Deux raisons de modifier cette classe
+- Couplage entre gestion de cours et notifications
+- Difficulté à réutiliser la logique de notification
+
+### Solution proposée
+Séparer en 3 classes :
+- `EmploiDuTemps` : gestion des cours uniquement
+- `NotificationService` : gestion des notifications uniquement  
+- `GestionnaireEmploiDuTemps` : coordinateur (Facade pattern)
+
+Cette refactorisation améliorerait la maintenabilité et la testabilité du code.
+
+## Conclusion
+
+Le code respecte globalement les principes SOLID avec une violation mineure du SRP facilement corrigible.
